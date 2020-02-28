@@ -37,6 +37,8 @@ class TelegramBot {
   }
 
   _init () {
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+
     const app = express();
     app.use(session({
       secret: Math.random().toString(36).substring(2),
@@ -90,7 +92,7 @@ class TelegramBot {
 
   sendMessage (message) {
     const apiUrl = path.join(BASE_URL, 'bot' + this._token, 'sendMessage');
-    const reqUrl = apiUrl + '?chat_id=' + this.chatId + '&text=' + message;
+    const reqUrl = apiUrl + '?chat_id=' + this._chatId + '&text=' + message;
     return axios.get(reqUrl).catch(e => {
       console.error(e);
     });
