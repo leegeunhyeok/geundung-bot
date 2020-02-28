@@ -8,7 +8,7 @@ import $ from './constants';
 import E from './errors';
 import Module from './module';
 
-const BASE_URL = 'https://api.telegram.org';
+const BASE_URL = 'https://api.telegram.org/';
 
 class TelegramBot {
   constructor (token, chatId, userId, type=$.BOT.AUTH_CHAT_ID) {
@@ -91,7 +91,7 @@ class TelegramBot {
   }
 
   sendMessage (message) {
-    const apiUrl = path.join(BASE_URL, 'bot' + this._token, 'sendMessage');
+    const apiUrl = BASE_URL + path.join('bot' + this._token, 'sendMessage');
     const reqUrl = apiUrl + '?chat_id=' + this._chatId + '&text=' + message;
     return axios.get(reqUrl).catch(e => {
       console.error(e);
