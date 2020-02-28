@@ -4,9 +4,10 @@
   "description": "Telegram bot for ghlee",
   "main": "main.js",
   "scripts": {
-    "dev": "npx babel-node index.js",
+    "dev": "npx babel-node main.js",
     "test": "jest ./test",
-    "build": "npx babel . --ignore node_modules --ignore sample -d dist/"
+    "build": "npx babel . --ignore node_modules -d dist/",
+    "start": "node ./dist/main.js"
   },
   "repository": {
     "type": "git",
