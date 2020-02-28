@@ -88,15 +88,10 @@ class TelegramBot {
     return this;
   }
 
-  sendMessage (message, type='text') {
-    const reqUrl = path.join(BASE_URL, 'bot' + this._token, 'sendMessage');
-    return axios.get(reqUrl, {
-      query: {
-        type,
-        chat_id: this._chatId,
-        text: message
-      }
-    }).catch(e => {
+  sendMessage (message) {
+    const apiUrl = path.join(BASE_URL, 'bot' + this._token, 'sendMessage');
+    const reqUrl = apiUrl + '?chat_id=' + this.chatId + '&text=' + message;
+    return axios.get(reqUrl).catch(e => {
       console.error(e);
     });
   }
