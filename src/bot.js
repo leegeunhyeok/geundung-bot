@@ -52,9 +52,7 @@ class TelegramBot {
       next();
     });
 
-    app.post('/' + this._token, (req, res) => {
-      console.log(req.body);
-
+    app.post('/', (req, res) => {
       for (const h of this._messageHooks) {
         if (h.command === 'test') {
           h.cb(req, res);
@@ -91,7 +89,7 @@ class TelegramBot {
   }
 
   sendMessage (message, type='text') {
-    const reqUrl = path.join(BASE_URL, 'sendMessage');
+    const reqUrl = path.join(BASE_URL, 'bot' + this._token, 'sendMessage');
     return axios.get(reqUrl, {
       query: {
         type,
