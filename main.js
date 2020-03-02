@@ -15,6 +15,4 @@ bot
   .load([
     new GithubModule()
   ])
-  .start({ port: 8080 }).then(() => {
-    console.log('Server started');
-  });
+  .start({ port: 8080 });
