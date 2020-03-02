@@ -5,6 +5,7 @@ import { oc } from '../src/util';
 const EVENTS = [
   ['ping', {
     name: 'Ping',
+    refs: [],
     format: '✅ Webhook ping recived'
   }],
   ['commit_comment', {
