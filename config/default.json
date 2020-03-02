@@ -1,5 +1,6 @@
 {
-  "TOKEN": "t",
-  "CHAT_ID": "t",
-  "USER_ID": "t"
+  "TOKEN": "",
+  "CHAT_ID": "",
+  "USER_ID": "",
+  "GITHUB_USERNAME": ""
 }

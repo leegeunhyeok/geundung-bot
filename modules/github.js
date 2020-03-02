@@ -340,10 +340,6 @@ export default class GithubModule extends TelegramBot.Module {
     messageHook ('/repos', (req, res) => {
       this.getRecentRepos(req, res);
     });
-
-    messageHook ('/repos', (req, res) => {
-      this.getRecentRepos(req, res);
-    });
   }
 
   getRecentRepos (req, res) {

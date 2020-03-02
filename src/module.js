@@ -9,7 +9,7 @@ class BotModule {
 
   _init ({ logger }) {
     this.logger = logger;
-    logger.info(this.constructor.name.rainbow, 'initializing..');
+    logger.info(` ${this.constructor.name} `.bgYellow.black, 'initializing..');
   }
 
   register () {

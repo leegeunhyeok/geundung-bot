@@ -91,8 +91,20 @@ class TelegramBot {
     app.post('/', (req, res) => {
       const username = oc(req.body, 'message', 'from', 'username');
       const message = oc(req.body, 'message', 'text');
-      const target = this._messageHooks.get(message);
-      logger.info(`${message} Recived from ${username.bgBlue.white}`);
+      let target = null;
+
+      if (message.charAt(0) === '/') {
+        const args = message.split(' ');
+        target = this._messageHooks.get(args[0]);
+        req.isCommend = true;
+        req.args = args.slice(1);
+      } else {
+        target = this._messageHooks.get(message);
+        req.isCommend = false;
+        req.args = [];
+      }
+
+      logger.info(`'${message}' Recived from ${username.bgBlue.white}`);
 
       if (target) {
         target(req, res);
@@ -148,7 +160,7 @@ class TelegramBot {
   sendMessage (message) {
     const apiUrl = BASE_URL + path.join('bot' + this._token, 'sendMessage');
     const reqUrl = apiUrl + '?chat_id=' + this._chatId + '&text=' + message;
-    logger.info('sendMessage', message);
+    logger.info(' sendMessage '.bgBlue.white, message);
     return axios.get(reqUrl).catch(e => {
       logger.error('sendMessage:', e.message);
     });

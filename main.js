@@ -1,6 +1,7 @@
 import TelegramBot, { $ } from './src/bot';
 
 import GithubModule from './modules/github';
+import SimpleStorageModule from './modules/simpleStorage';
 
 import config from 'config';
 
@@ -10,9 +11,12 @@ const USER_ID = config.has('USER_ID') ?
                 config.get('USER_ID') :
                 '';
 
+const GITHUB_USERNAME = config.get('GITHUB_USERNAME');
+
 const bot = new TelegramBot(TOKEN, CHAT_ID, USER_ID, $.API.SEND_MESSAGE);
 bot
   .load([
-    new GithubModule()
+    new GithubModule({ username: GITHUB_USERNAME }),
+    new SimpleStorageModule()
   ])
   .start({ port: 8080 });
