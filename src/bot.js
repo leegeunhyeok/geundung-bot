@@ -18,6 +18,7 @@ class TelegramBot {
     this._userId = userId;
     this._authType = type;
     this._modules = [];
+    this._hooks = new Map();
     this._messageHooks = new Map();
 
     this._app = null;
@@ -111,18 +112,22 @@ class TelegramBot {
       config = {};
     }
 
-    const { method } = config;
-    this._app[(method || 'GET').toLowerCase()](url, cb);
-    logger.info('Hook added:', url);
+    const method = (config.method || 'GET').toLowerCase();
+    if (this._hooks.has(method + url)) {
+      logger.warning('Duplicated hook hook:', method, url.red);
+    }
+
+    this._app[method](url, cb);
+    logger.info(' Hook '.bgBlue.white, 'added:', url.magenta);
   }
 
   _messageHook (command, cb) {
     if (this._messageHooks.has(command)) {
-      logger.warning('Duplicated message hook:', command);
+      logger.warning('Duplicated message hook:', command.red);
     }
 
     this._messageHooks.set(command, cb);
-    logger.info('Message hook added:', command);
+    logger.info(' Message hook '.bgBlue.white, 'added:', command.magenta);
   }
 
   load (...modules) {
@@ -145,14 +150,15 @@ class TelegramBot {
     const reqUrl = apiUrl + '?chat_id=' + this._chatId + '&text=' + message;
     logger.info('sendMessage', message);
     return axios.get(reqUrl).catch(e => {
-      logger.error(e);
+      logger.error('sendMessage:', e.message);
     });
   }
 
   start ({ port }) {
     return new Promise(resolve => {
-      this._app.listen(port || 8080, () => {
-        logger.success('Server started');
+      const p = port || 8080;
+      this._app.listen(p, () => {
+        logger.success('Telegram bot started at', p.toString().blue, 'port');
         resolve();
       });
     });

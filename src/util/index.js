@@ -1,9 +1,9 @@
 import logger from './logger';
 
 const oc = (o, ...args) => {
-  let v = o;
+  let v = Object.assign({}, o);
   for (let k of args) {
-    v = o[k];
+    v = v[k];
     if (v === undefined) {
       return undefined;
     }
