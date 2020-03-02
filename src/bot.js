@@ -12,7 +12,8 @@ import Module from './module';
 const BASE_URL = 'https://api.telegram.org/';
 
 class TelegramBot {
-  constructor (token, chatId, userId, type=$.BOT.AUTH_CHAT_ID) {
+  constructor (proxy, token, chatId, userId, type=$.BOT.AUTH_CHAT_ID) {
+    this._proxy = proxy;
     this._token = token;
     this._chatId = chatId;
     this._userId = userId;
@@ -88,7 +89,7 @@ class TelegramBot {
       next();
     });
 
-    app.post('/', (req, res) => {
+    app.post(this._proxy + '/', (req, res) => {
       const username = oc(req.body, 'message', 'from', 'username');
       const message = oc(req.body, 'message', 'text');
       let target = null;
@@ -129,7 +130,7 @@ class TelegramBot {
       logger.warning('Duplicated hook hook:', method, url.red);
     }
 
-    this._app[method](url, cb);
+    this._app[method](this._proxy + url, cb);
     logger.info(' Hook '.bgBlue.white, 'added:', url.magenta);
   }
 
