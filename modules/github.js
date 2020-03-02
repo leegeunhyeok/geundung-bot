@@ -331,7 +331,6 @@ export default class GithubModule extends TelegramBot.Module {
     }
 
     const config = this._events.get(event);
-    this.logger(`'${config.name}' event triggered`);
     return this._parse(body, config);
   }
 
