@@ -53,8 +53,9 @@ class TelegramBot {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false}));
 
-    app.use('*', (_, res, next) => {
+    app.use('*', (req, res, next) => {
       res.bot = this;
+      req.axios = axios;
 
       const afterResponse = () => {
         res.removeListener('finish', afterResponse);
