@@ -92,7 +92,7 @@ class TelegramBot {
 
     app.post(this._proxy + '/', (req, res) => {
       const username = oc(req.body, 'message', 'from', 'username');
-      const message = oc(req.body, 'message', 'text');
+      const message = oc(req.body, 'message', 'text') || '';
       let target = null;
 
       if (message.charAt(0) === '/') {
