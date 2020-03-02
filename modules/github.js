@@ -6,16 +6,13 @@ export default class GithubModule extends TelegramBot.Module {
   }
 
   register ({ hook, messageHook }) {
-    hook ('/api', { method: 'POST' }, (req, res) => {
-      res.bot.sendMessage('test');
+    hook ('/github', { method: 'POST' }, (req, res) => {
+      console.log(req.headers);
+      res.bot.sendMessage('hello');
     });
 
-    hook ('/api', { method: 'POST' }, (req, res) => {
-      res.bot.sendMessage('test');
-    });
-
-    messageHook ('test', (req, res) => {
-      res.bot.sendMessage(req.body);
+    messageHook ('/gh-hooks', (req, res) => {
+      res.bot.sendMessage('Hooks');
     });
   }
 }

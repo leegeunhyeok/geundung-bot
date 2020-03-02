@@ -4,7 +4,7 @@ import session from 'express-session';
 import bodyParser from 'body-parser';
 import axios from 'axios';
 
-import { logger } from './util';
+import { logger, oc } from './util';
 import $ from './constants';
 import E from './errors';
 import Module from './module';
@@ -88,13 +88,18 @@ class TelegramBot {
     });
 
     app.post('/', (req, res) => {
-      const target = this._messageHooks.get('test');
+      const username = oc(req.body, 'message', 'from', 'username');
+      const message = oc(req.body, 'message', 'text');
+      const target = this._messageHooks.get(message);
+      logger.info(`${message} Recived from ${username.bgBlue.white}`);
+
       if (target) {
         target(req, res);
       } else {
-        logger.warning('test', 'Message hooks not found');
-        this.sendMessage('test', 'Message hooks not found');
+        logger.warning(message, 'Message hooks not found');
+        this.sendMessage(message, 'Message hooks not found');
       }
+      res.end();
     });
 
     this._app = app;
