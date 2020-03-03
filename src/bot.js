@@ -90,8 +90,8 @@ class TelegramBot {
       next();
     });
 
-    app.post(this._proxy + '/', (req, res) => {
-      const username = oc(req.body, 'message', 'from', 'username') || '';
+    app.post(this._proxy || '/', (req, res) => {
+      const username = oc(req.body, 'message', 'from', 'username');
       const message = oc(req.body, 'message', 'text') || '';
       let target = null;
 
@@ -106,7 +106,9 @@ class TelegramBot {
         req.args = [];
       }
 
-      logger.info(`'${message}' Recived from ${username.bgBlue.white}`);
+      if (username) {
+        logger.info(`'${message}' Recived from ${username.bgBlue.white}`);
+      }
 
       if (target) {
         target(req, res);
@@ -163,7 +165,7 @@ class TelegramBot {
     const apiUrl = BASE_URL + path.join('bot' + this._token, 'sendMessage');
     const reqUrl = apiUrl + '?chat_id=' + this._chatId + '&text=' + message;
     logger.info(' sendMessage '.bgBlue.white, message);
-    return axios.get(reqUrl).catch(e => {
+    return axios.get(encodeURI(reqUrl)).catch(e => {
       logger.error('sendMessage:', e.message);
     });
   }
