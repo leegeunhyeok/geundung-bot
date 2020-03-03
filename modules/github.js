@@ -6,7 +6,7 @@ const EVENTS = [
   ['ping', {
     name: 'Ping',
     refs: [],
-    format: 'Webhook ping recived'
+    format: '✅ Webhook ping recived'
   }],
   ['commit_comment', {
     name: 'Commented on commit',
@@ -18,10 +18,10 @@ const EVENTS = [
       { key: 'repository.full_name' }
     ],
     format: '[{repository.full_name}] \'{comment.user.login}\' ' +
-            'commented\n\n' +
+            'commented 💬\n\n' +
             '{comment.body}\n\n' +
-            'Created at {comment.created_at}' +
-            '{comment.html_url}'
+            '🕒 Created at {comment.created_at}' +
+            '🌎 {comment.html_url}'
   }],
   ['create', {
     name: 'Branch/Tag created',
@@ -29,7 +29,7 @@ const EVENTS = [
       { key: 'ref_type' },
       { key: 'ref' }
     ],
-    format: '({ref_type}) {ref} was created'
+    format: '({ref_type}) {ref} was created 🔖'
   }],
   ['delete', {
     name: 'Branch/Tag deleted',
@@ -37,7 +37,7 @@ const EVENTS = [
       { key: 'ref_type' },
       { key: 'ref' }
     ],
-    format: '({ref_type}) {ref} was deleted'
+    format: '({ref_type}) {ref} was deleted 🔖'
   }],
   ['fork', {
     name: 'Repository forked',
@@ -48,8 +48,8 @@ const EVENTS = [
       { key: 'repository.full_name' }
     ],
     format: '[{repository.full_name}] \'{forkee.owner.login}\' ' +
-            'forked to [{forkee.full_name}]\n\n' +
-            '{forkee.html_url}'
+            'forked to [{forkee.full_name}] 🍴\n\n' +
+            '🌎 {forkee.html_url}'
   }],
   ['gist', {
     name: 'Gist',
@@ -59,10 +59,10 @@ const EVENTS = [
       { key: 'gist.created_at' },
       { key: 'gist.updated_at' }
     ],
-    format: 'Gist {action}d\n\n' +
-            'Created at {gist.created_at}\n' +
-            'Created at {gist.updated_at}\n\n' +
-            '{gist.html_url}'
+    format: '📝 Gist {action}d\n\n' +
+            '🕒 Created at {gist.created_at}\n' +
+            '🕒 Created at {gist.updated_at}\n\n' +
+            '🌎 {gist.html_url}'
   }],
   ['issue_comment', {
     name: 'Issue comment',
@@ -79,12 +79,12 @@ const EVENTS = [
       { key: 'repository.full_name' }
     ],
     format: '[{repository.full_name}] ' +
-            '{issue.title} #{issue.number} ({issue.state})\n' +
-            'Issue comment {action} by \'{comment.user.login}\'\n\n' +
+            '{issue.title} #{issue.number} ({issue.state}) 🔥\n' +
+            '👤 Issue comment {action} by \'{comment.user.login}\'\n\n' +
             '{comment.body}\n\n' +
-            'Created at {comment.created_at}\n' +
-            'Updated at {comment.updated_at}\n\n' +
-            '{comment.html_url}'
+            '🕒 Created at {comment.created_at}\n' +
+            '🕒 Updated at {comment.updated_at}\n\n' +
+            '🌎 {comment.html_url}'
   }],
   ['issues', {
     name: 'Issue',
@@ -96,8 +96,8 @@ const EVENTS = [
       { key: 'repository.full_name' }
     ],
     format: '[{repository.full_name}] ' +
-            '{issue.title} #{issue.number} ({action})\n\n' +
-            '{issue.html_url}'
+            '{issue.title} #{issue.number} ({action}) 🔥\n\n' +
+            '🌎 {issue.html_url}'
   }],
   ['public', {
     name: 'Set to public',
@@ -120,14 +120,14 @@ const EVENTS = [
       { key: 'pull_request.updated_at' },
       { key: 'repository.full_name' }
     ],
-    format: 'Pull Request\n' +
+    format: '✨ Pull Request ✨\n' +
             '[{repository.full_name}] ' +
             '{pull_request.title} #{number} ({pull_request.state})\n' +
-            'Pull request {action} by \'{pull_request.user.login}\'\n\n' +
+            '👤 Pull request {action} by \'{pull_request.user.login}\'\n\n' +
             '{pull_request.body}\n\n' +
-            'Created at {pull_request.created_at}\n' +
-            'Updated at {pull_request.updated_at}\n\n' +
-            '{pull_request.html_url}'
+            '🕒 Created at {pull_request.created_at}\n' +
+            '🕒 Updated at {pull_request.updated_at}\n\n' +
+            '🌎 {pull_request.html_url}'
   }],
   ['pull_request_review', {
     name: 'Pull request review',
@@ -140,12 +140,12 @@ const EVENTS = [
       { key: 'pull_request.state' },
       { key: 'repository.full_name' }
     ],
-    format: 'Pull Request\n' +
+    format: '✨ Pull Request ✨\n' +
             '[{repository.full_name}] ' +
             '{pull_request.title} #{number} ({pull_request.state})\n' +
-            'Pull request review {action} by ' +
+            '👤 Pull request review {action} by ' +
             '\'{pull_request.user.login}\'\n\n' +
-            '{pull_request.html_url}'
+            '🌎 {pull_request.html_url}'
   }],
   ['pull_request_review_comment', {
     name: 'Pull request review comment',
@@ -161,16 +161,16 @@ const EVENTS = [
       { key: 'pull_request.state' },
       { key: 'repository.full_name' }
     ],
-    format: 'Pull Request\n' +
+    format: '✨ Pull Request ✨\n' +
             '[{repository.full_name}] ' +
             '{pull_request.title} #{pull_request.number} ' +
             '({pull_request.state})\n' +
-            'Pull request comment {action} by ' +
+            '👤 Pull request comment {action} by ' +
             '\'{comment.user.login}\'\n\n' +
             '{comment.body}\n\n' +
-            'Created at {comment.created_at}\n' +
-            'Updated at {comment.updated_at}\n\n' +
-            '{comment.html_url}'
+            '🕒 Created at {comment.created_at}\n' +
+            '🕒 Updated at {comment.updated_at}\n\n' +
+            '🌎 {comment.html_url}'
   }],
   ['push', {
     name: 'Push',
@@ -196,9 +196,9 @@ const EVENTS = [
       { key: 'repository.full_name' }
     ],
     format: '[{repository.full_name}] Push {ref}\n\n' +
-            'Commits\n' +
+            '📜 Commits\n' +
             '{commits}\n' +
-            'Push by {pusher.name} <{pusher.email}>'
+            '👤 Push by {pusher.name} <{pusher.email}>'
   }],
   ['release', {
     name: 'Release',
@@ -219,11 +219,11 @@ const EVENTS = [
     ],
     format: '[{repository.full_name}] Release {release.tag_name}' +
             '{release.prerelease}\n' +
-            'Release {action} by {release.author.login}\n\n' +
+            '🎉 Release {action} by {release.author.login}\n\n' +
             '{release.body}\n\n' +
-            'Created at {release.created_at}\n' +
-            'Published at at {release.published_at}\n\n' +
-            '{release.html_url}'
+            '🕒 Created at {release.created_at}\n' +
+            '🕒 Published at at {release.published_at}\n\n' +
+            '🌎 {release.html_url}'
   }],
   ['star', {
     name: 'Star',
@@ -237,11 +237,11 @@ const EVENTS = [
       { key: 'sender.login' }
     ],
     format: '[{repository.full_name}] Star\n' +
-            'Star {action} by {sender.login}\n\n' +
-            'Starred at {starred_at}\n\n' +
-            'Star(s): {repository.stargazers_count}\n' +
-            'Watcher(s): {repository.watchers_count}\n\n' +
-            '{repository.html_url}'
+            '🌟 Star {action} by {sender.login}\n\n' +
+            '🕒 Starred at {starred_at}\n\n' +
+            '⭐ Star(s): {repository.stargazers_count}\n' +
+            '👀 Watcher(s): {repository.watchers_count}\n\n' +
+            '🌎 {repository.html_url}'
   }],
   ['watch', {
     name: 'Watch',
@@ -254,10 +254,10 @@ const EVENTS = [
       { key: 'sender.login' }
     ],
     format: '[{repository.full_name}] Watch\n' +
-            'Watch {action} by {sender.login}\n\n' +
-            'Star(s): {repository.stargazers_count}\n' +
-            'Watcher(s): {repository.watchers_count}\n\n' +
-            '{repository.html_url}'
+            '👋 Watch {action} by {sender.login}\n\n' +
+            '⭐ Star(s): {repository.stargazers_count}\n' +
+            '👀 Watcher(s): {repository.watchers_count}\n\n' +
+            '🌎 {repository.html_url}'
   }]
 ];
 
