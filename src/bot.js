@@ -170,7 +170,7 @@ class TelegramBot {
     const apiUrl = BASE_URL + path.join('bot' + this._token, 'sendMessage');
     const reqUrl = apiUrl + '?chat_id=' + this._chatId + '&text=' + message;
     logger.info(' sendMessage '.bgBlue.white, message);
-    return axios.get(encodeURI(reqUrl)).catch(e => {
+    return axios.get(encodeURI(reqUrl).replace('#', '%23')).catch(e => {
       logger.error('sendMessage:', e.message);
     });
   }
