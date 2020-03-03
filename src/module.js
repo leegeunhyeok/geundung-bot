@@ -13,11 +13,11 @@ class BotModule {
   }
 
   register () {
-    throw new E.CORE.NOT_IMPLEMENTED();
+    throw E.CORE.NOT_IMPLEMENTED;
   }
 
   messageHook () {
-    throw new E.CORE.NOT_IMPLEMENTED();
+    throw E.CORE.NOT_IMPLEMENTED;
   }
 }
 
