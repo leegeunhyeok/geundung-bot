@@ -25,6 +25,10 @@ export default class SimpleStorageModule extends TelegramBot.Module {
         case 'clear':
           message = this.clear();
           break;
+
+        default:
+          message = 'usage: /ss [action] [key] [value]';
+          break;
       }
 
       res.bot.sendMessage(message);

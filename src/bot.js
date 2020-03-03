@@ -162,6 +162,11 @@ class TelegramBot {
   }
 
   sendMessage (message) {
+    if (!message) {
+      logger.warning('You can not send empty message');
+      return;
+    }
+
     const apiUrl = BASE_URL + path.join('bot' + this._token, 'sendMessage');
     const reqUrl = apiUrl + '?chat_id=' + this._chatId + '&text=' + message;
     logger.info(' sendMessage '.bgBlue.white, message);
