@@ -360,12 +360,10 @@ export default class GithubModule extends TelegramBot.Module {
           return prev;
         }, `${this.config.username}'s recent updated 6 repositories\n\n`);
         res.bot.sendMessage(message);
+        res.end();
       })
       .catch(e => {
         this.logger.error(e.message);
-      })
-      .finally(() => {
-        res.end();
       });
   }
 }
